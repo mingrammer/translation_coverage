@@ -21,43 +21,54 @@ class TestUtilsMethods(unittest.TestCase):
         self.assertEqual(main.is_ascii('金'), False)
 
     def test_trans_coverage_no_file(self):
-        e_count, n_count = main.trans_coverage_file("no_file.md")
-        print("No file: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage_file("no_file.md")
+        print("No file: ", e_count, n_count, nn_count)
         self.assertEqual(0, e_count)
         self.assertEqual(0, n_count)
+        self.assertEqual(0, nn_count)
 
     def test_trans_coverage_file(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample.md")
-        print("sample: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage_file(
+            "tests/sample.md")
+        print("sample: ", e_count, n_count, nn_count)
         self.assertNotEqual(0, e_count)
         self.assertNotEqual(0, n_count)
+        self.assertNotEqual(0, nn_count)
 
     def test_trans_coverage_file_kor(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_kor.md")
-        print("sample_kor: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage_file(
+            "tests/sample_kor.md")
+        print("sample_kor: ", e_count, n_count, nn_count)
         self.assertEqual(0, e_count)
         self.assertNotEqual(0, n_count)
+        self.assertEqual(0, nn_count)
 
     def test_trans_coverage_file_eng(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_eng.md")
-        print("sample_eng: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage_file(
+            "tests/sample_eng.md")
+        print("sample_eng: ", e_count, n_count, nn_count)
         self.assertNotEqual(0, e_count)
         self.assertEqual(0, n_count)
+        self.assertEqual(0, nn_count)
 
     def test_trans_coverage_file_source_code(self):
-        e_count, n_count = main.trans_coverage_file("tests/sample_source_code.md")
-        print("sample_source_code: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage_file(
+            "tests/sample_source_code.md")
+        print("sample_source_code: ", e_count, n_count, nn_count)
         self.assertEqual(e_count, 0)
-        self.assertNotEqual(n_count, 0)
+        self.assertEqual(n_count, 0)
+        self.assertNotEqual(nn_count, 0)
 
     def test_trans_coverage(self):
         args = main.parse_args(["--dir=tests"])
         ext = tuple(args.ext.split())
 
-        e_count, n_count = main.trans_coverage(-1, args, "tests", ext)
-        print("test dir: ", e_count, n_count)
+        e_count, n_count, nn_count = main.trans_coverage(
+            -1, args, "tests", ext)
+        print("test dir: ", e_count, n_count, nn_count)
         self.assertNotEqual(0, e_count)
         self.assertNotEqual(0, n_count)
+        self.assertNotEqual(0, nn_count)
 
         # Generate/update sample file
         # `python main.py --dir tests > sample.md`

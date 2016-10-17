@@ -12,9 +12,9 @@ def read_file_with_source_code(filename, ext_set=None):
         Args:
             filename: full filename
             ext_set: available extensions
-            
+
         Returns:
-            Tuple of original text and text without source code
+            Tuple of original text and normal text without special string
     """
     # Strip function dictionary for specific extension
     source_code_stripper = {
@@ -33,12 +33,14 @@ def read_file_with_source_code(filename, ext_set=None):
 
             ext = os.path.splitext(filename)[1]
 
+            # Store normal text except text with special meaning (e.g. source
+            # code)
+            text_normal = ''
+
             # Except source code
             if ext in source_code_stripper:
-                text_non_source_code = source_code_stripper[ext](text_content)
-            else:
-                text_non_source_code = ''
+                text_normal = source_code_stripper[ext](text_content)
 
-            return text_content, text_non_source_code
+            return text_content, text_normal
     except:
         return '', ''
