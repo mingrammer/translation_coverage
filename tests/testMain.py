@@ -22,11 +22,11 @@ class TestUtilsMethods(unittest.TestCase):
         self.assertEqual(main.is_ascii('金'), False)
 
     def test_get_progress_emoji(self):
-        self.assertEqual(utils.get_progress_emoji(0), ':new_moon:')
-        self.assertEqual(utils.get_progress_emoji(20), ':waning_crescent_moon:')
+        self.assertEqual(utils.get_progress_emoji(10), ':new_moon:')
+        self.assertEqual(utils.get_progress_emoji(30), ':waning_crescent_moon:')
         self.assertEqual(utils.get_progress_emoji(50), ':last_quarter_moon:')
-        self.assertEqual(utils.get_progress_emoji(80), ':waning_gibbous_moon:')
-        self.assertEqual(utils.get_progress_emoji(100), ':full_moon:')
+        self.assertEqual(utils.get_progress_emoji(70), ':waning_gibbous_moon:')
+        self.assertEqual(utils.get_progress_emoji(90), ':full_moon:')
 
     def test_trans_coverage_no_file(self):
         e_count, n_count = main.trans_coverage_file("no_file.md")
